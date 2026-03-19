@@ -20,7 +20,7 @@ const WeatherIcon = ({ code, size = 24 }) => {
     ),
   };
   const getIconPath = (code) => {
-    // Simple mapping of weather codes to SVG paths (basic icons)
+    // Simple mapping of weather codes to SVG paths (basic icons) dfdshk
     if (code >= 200 && code < 300)
       return 'M7 2l1 3h3l-2.5 2 1 3-2.5-2-2.5 2 1-3L3 5h3z'; // thunderstorm
     if (code >= 300 && code < 400)
