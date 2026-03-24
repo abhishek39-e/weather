@@ -202,16 +202,16 @@ const WeatherIcon = ({ code }) => {
     ),
   };
 
-  let iconKey = 'cloudy'; // default
+  let iconKey = 'cloudy';
 
   if (code >= 200 && code < 300) {
-    iconKey = 'stormy'; // thunderstorm
+    iconKey = 'stormy';
   } else if (code >= 300 && code < 600) {
-    iconKey = 'rainy'; // drizzle + rain
+    iconKey = 'rainy';
   } else if (code >= 600 && code < 700) {
-    iconKey = 'snowy'; // snow
+    iconKey = 'snowy';
   } else if (code >= 700 && code < 800) {
-    iconKey = 'mist'; // fog, haze, dust
+    iconKey = 'mist';
   } else if (code === 800) {
     iconKey = 'sunny';
   } else if (code === 801 || code === 802) {
