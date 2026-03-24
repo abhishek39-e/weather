@@ -181,7 +181,7 @@ const WeatherIcon = ({ code }) => {
         <title>ic_fluent_weather_partly_cloudy_day_48_regular</title>
         <desc>Created with Sketch.</desc>
         <g
-          id='🔍-Product-Icons'
+          id='Product-Icons'
           stroke='none'
           stroke-width='1'
           fill='none'
