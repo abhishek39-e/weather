@@ -213,9 +213,9 @@ const WeatherIcon = ({ code }) => {
   } else if (code >= 700 && code < 800) {
     iconKey = 'mist'; // fog, haze, dust
   } else if (code === 800) {
-    iconKey = 'sunny'; // clear sky ☀️
+    iconKey = 'sunny';
   } else if (code === 801 || code === 802) {
-    iconKey = 'partlyCloudy'; // few clouds 🌤
+    iconKey = 'partlyCloudy';
   } else if (code >= 803 && code <= 804) {
     iconKey = 'cloudy';
   }
