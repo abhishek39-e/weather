@@ -217,8 +217,8 @@ const WeatherIcon = ({ code }) => {
   } else if (code === 801 || code === 802) {
     iconKey = 'partlyCloudy'; // few clouds 🌤
   } else if (code >= 803 && code <= 804) {
-    iconKey = 'cloudy'; // broken/overcast ☁️
-  } // clouds
+    iconKey = 'cloudy';
+  }
   return iconns[iconKey];
 };
 
