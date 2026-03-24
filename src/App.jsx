@@ -16,28 +16,66 @@ export default function WeatherApp() {
   const fetchWeather = useCallback(async (city) => {
     setLoading(true);
     setError('');
-    try {
-      // Mock data for testing
-      const mockWeather = {
-        tempC: 20,
-        code: 800,
-        description: 'Clear sky',
-        windKph: 10,
-        humidity: 60,
-        feelsLikeC: 22,
-        forecast: [
-          { day: 'Mon', lowC: 15, highC: 25, code: 800 },
-          { day: 'Tue', lowC: 16, highC: 26, code: 801 },
-          { day: 'Wed', lowC: 17, highC: 27, code: 802 },
-          { day: 'Thu', lowC: 18, highC: 28, code: 803 },
-          { day: 'Fri', lowC: 19, highC: 29, code: 804 },
-        ],
-      };
-      setWeather(mockWeather);
+    if (!API_KEY) {
+      setError('Missing API key: set VITE_API_KEY in .env');
       setLoading(false);
       return;
+    }
+
+    try {
+      const currentRes = await fetch(
+        `${BASE_URL}/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`,
+      );
+      if (!currentRes.ok) {
+        const errData = await currentRes.json().catch(() => ({}));
+        throw new Error(
+          errData.message || `Weather API error ${currentRes.status}`,
+        );
+      }
+      const currentData = await currentRes.json();
+
+      const forecastRes = await fetch(
+        `${BASE_URL}/forecast?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`,
+      );
+      if (!forecastRes.ok) {
+        const errData = await forecastRes.json().catch(() => ({}));
+        throw new Error(
+          errData.message || `Forecast API error ${forecastRes.status}`,
+        );
+      }
+      const forecastData = await forecastRes.json();
+
+      const dailyMap = {}; // key: weekday
+      forecastData.list.forEach((item) => {
+        const date = new Date(item.dt * 1000);
+        const day = date.toLocaleDateString([], { weekday: 'short' });
+        const code = item.weather?.[0]?.id || 800;
+        const lowC = item.main.temp_min;
+        const highC = item.main.temp_max;
+
+        if (!dailyMap[day]) {
+          dailyMap[day] = { day, lowC, highC, code };
+        } else {
+          dailyMap[day].lowC = Math.min(dailyMap[day].lowC, lowC);
+          dailyMap[day].highC = Math.max(dailyMap[day].highC, highC);
+        }
+      });
+
+      const forecast = Object.values(dailyMap).slice(0, 5);
+
+      const loadedWeather = {
+        tempC: currentData.main.temp,
+        code: currentData.weather?.[0]?.id,
+        description: currentData.weather?.[0]?.description || 'N/A',
+        windKph: Math.round(currentData.wind.speed * 3.6),
+        humidity: currentData.main.humidity,
+        feelsLikeC: currentData.main.feels_like,
+        forecast,
+      };
+
+      setWeather(loadedWeather);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || 'Failed to fetch weather');
     } finally {
       setLoading(false);
     }

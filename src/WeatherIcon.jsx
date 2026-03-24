@@ -38,6 +38,7 @@ const WeatherIcon = ({ code }) => {
         height='20px'
         version='1.1'
         id='Capa_1'
+        fill='#fff'
         xmlns='http://www.w3.org/2000/svg'
         xmlns:xlink='http://www.w3.org/1999/xlink'
         x='0px'
@@ -90,7 +91,7 @@ const WeatherIcon = ({ code }) => {
     ),
     rainy: (
       <svg
-        fill='#000000'
+        fill='#fff'
         width='20px'
         height='20px'
         viewBox='0 0 24 24'
@@ -170,6 +171,7 @@ const WeatherIcon = ({ code }) => {
         xmlns:xlink='http://www.w3.org/1999/xlink'
         width='20px'
         height='20px'
+        fill='#fff'
         viewBox='0 0 48 48'
         version='1.1'
       >
