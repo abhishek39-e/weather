@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { GH, getAccent, displayTemp } from '../components/WeatherUtils';
 import { Card, StatCell, ForecastRow } from '../components/WeatherComponents';
-import WeatherIcon from './WeatherIcon'; //dfd
+import WeatherIcon from './WeatherIcon'; 
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 const BASE_URL = 'https://api.openweathermap.org/data/2.5';
