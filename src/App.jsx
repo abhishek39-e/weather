@@ -45,7 +45,7 @@ export default function WeatherApp() {
       }
       const forecastData = await forecastRes.json();
 
-      const dailyMap = {}; // key: weekday
+      const dailyMap = {};
       forecastData.list.forEach((item) => {
         const date = new Date(item.dt * 1000);
         const day = date.toLocaleDateString([], { weekday: 'short' });
